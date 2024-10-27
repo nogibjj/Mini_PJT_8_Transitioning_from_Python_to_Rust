@@ -1,78 +1,117 @@
-use clap::Parser; // Import the Parser trait from the clap crate to parse command-line arguments
+use mini_pjt_7_rust_pilot_isl::{
+    extract, load, query_create, query_delete, query_read, query_update,
+};
+use std::time::Instant;
+use sysinfo::{ProcessExt, System, SystemExt};
 
-// Define a struct to hold the command-line arguments
-#[derive(Parser, Debug)] // Derive the Parser trait for Args to enable parsing and Debug for printing
-#[clap(version = "1.0", about = "calculator")] // Metadata: version and description of the command-line tool
-struct Args {
-    #[clap(subcommand)]
-    // This specifies that Args contains a subcommand (like add, multiply, etc.)
-    command: Commands, // Store the subcommand in the command field
-}
+fn performance<F, R>(func: F, func_name: &str) -> Result<R, String>
+where
+    F: FnOnce() -> Result<R, String>,
+{
+    let mut sys = System::new_all();
+    sys.refresh_all();
+    let pid = sysinfo::get_current_pid().expect("Failed to get PID");
 
-// Define an enum to list the supported subcommands
-#[derive(Parser, Debug)] // Derive the Parser and Debug traits for Commands
-enum Commands {
-    Add { a: i64, b: i64 },
-    Subtract { a: i64, b: i64 },
-    Multiply { a: i64, b: i64 },
-    Divide { a: i64, b: i64 },
+    let start_memory = sys
+        .process(pid)
+        .expect("Failed to get current process")
+        .memory();
+    let start_time = Instant::now();
+
+    let result = func();
+
+    let duration = start_time.elapsed();
+    sys.refresh_all();
+    let end_memory = sys
+        .process(pid)
+        .expect("Failed to get current process")
+        .memory();
+
+    println!("Function: {}", func_name);
+    println!("Execution Time: {:.2?}", duration);
+    println!("Memory Usage Before: {} KB", start_memory);
+    println!("Memory Usage After: {} KB", end_memory);
+    println!(
+        "Memory Consumed: {} KB\n",
+        end_memory as i64 - start_memory as i64
+    );
+
+    result
 }
 
 fn main() {
-    let args = Args::parse(); // Parse the command-line arguments into the Args struct
+    let url = "https://raw.githubusercontent.com/nogibjj/Mini_PJT_6_Complex-SQL-Query-for-a-MySQL-Database_ISL/main/data_raw/HR_1.csv";
+    let file_path = "HR_1.csv";
+    let timeout = 10;
 
-    // Match the parsed subcommand and execute the appropriate code for each case
-    match args.command {
-        Commands::Add { a, b } => println!("Sum: {}", a + b),
-        Commands::Subtract { a, b } => println!("Subtraction: {}", a - b),
-        Commands::Multiply { a, b } => println!("Product: {}", a * b),
-        Commands::Divide { a, b } => {
-            if b == 0 {
-                println!("wrong");
-            } else {
-                println!("Division: {}", a / b);
-            }
-        }
+    if let Err(e) = performance(|| extract(url, file_path, timeout), "extract") {
+        println!("Error in extract: {}", e);
+    }
+    if let Err(e) = performance(|| load(file_path), "load") {
+        println!("Error in load: {}", e);
+    }
+    if let Err(e) = performance(query_create, "query_create") {
+        println!("Error in query_create: {}", e);
+    }
+    if let Err(e) = performance(query_read, "query_read") {
+        println!("Error in query_read: {}", e);
+    }
+    if let Err(e) = performance(query_update, "query_update") {
+        println!("Error in query_update: {}", e);
+    }
+    if let Err(e) = performance(query_delete, "query_delete") {
+        println!("Error in query_delete: {}", e);
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::path::Path;
 
     #[test]
-    fn test_add() {
-        let result = Commands::Add { a: 2, b: 3 };
-        match result {
-            Commands::Add { a, b } => assert_eq!(a + b, 5), // 2 + 3 = 5
-            _ => panic!("Error!"),
-        }
+    fn test_extract() {
+        let url = "https://raw.githubusercontent.com/nogibjj/Mini_PJT_6_Complex-SQL-Query-for-a-MySQL-Database_ISL/main/data_raw/HR_1.csv";
+        let file_path = "HR_1.csv";
+        let timeout = 10;
+
+        let result = extract(url, file_path, timeout);
+        assert_eq!(result, Ok("HR_1.csv".to_string()));
     }
 
     #[test]
-    fn test_subtract() {
-        let result = Commands::Subtract { a: 5, b: 3 };
-        match result {
-            Commands::Subtract { a, b } => assert_eq!(a - b, 2), // 5 - 3 = 2
-            _ => panic!("Error!"),
-        }
+    fn test_load() {
+        let file_path = "HR_1.csv";
+
+        // Attempt to load data and check if the DB file is created
+        let _ = load(file_path);
+
+        // Check if the database file was created as the success condition
+        let db_path = Path::new("HR_1.db");
+        assert!(db_path.exists(), "Database file was not created");
     }
 
     #[test]
-    fn test_multiply() {
-        let result = Commands::Multiply { a: 4, b: 3 };
-        match result {
-            Commands::Multiply { a, b } => assert_eq!(a * b, 12), // 4 * 3 = 12
-            _ => panic!("Error!"),
-        }
+    fn test_query_create() {
+        let result = query_create();
+        assert_eq!(result, Ok("Create Success".to_string()));
     }
 
     #[test]
-    fn test_divide() {
-        let result = Commands::Divide { a: 6, b: 3 };
-        match result {
-            Commands::Divide { a, b } => assert_eq!(a / b, 2), // 6 / 3 = 2
-            _ => panic!("Error!"),
-        }
+    fn test_query_read() {
+        let result = query_read();
+        assert_eq!(result, Ok("Read Success".to_string()));
+    }
+
+    #[test]
+    fn test_query_update() {
+        let result = query_update();
+        assert_eq!(result, Ok("Update Success".to_string()));
+    }
+
+    #[test]
+    fn test_query_delete() {
+        let result = query_delete();
+        assert_eq!(result, Ok("Delete Success".to_string()));
     }
 }
