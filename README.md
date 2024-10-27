@@ -1,5 +1,5 @@
 # IDS-706 Data Engineering Assignment
-## Mini Project 7 : Package a Rust Script into a Command-Line Tool
+## Mini Project 8 : Package a Rust Script into a Command-Line Tool
 
 #### Status(CI/CD) badge [![CI/CD](https://github.com/nogibjj/Mini_PJT_7_Rust_Pilot_ISL/actions/workflows/CICD.yaml/badge.svg)](https://github.com/nogibjj/Mini_PJT_7_Rust_Pilot_ISL/actions/workflows/CICD.yaml)
 ------

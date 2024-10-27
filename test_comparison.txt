@@ -1,0 +1,87 @@
+[Rust]
+
+(miniconda3) (base) ➜  Mini_PJT_8_Transitioning_from_Python_to_Rust git:(main) ✗ cargo run
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.24s
+     Running `target/debug/mini_pjt_7_rust_pilot_isl`
+Function: extract
+Execution Time: 332.48ms
+Memory Usage Before: 9863 KB
+Memory Usage After: 16171 KB
+Memory Consumed: 6308 KB
+
+Function: load
+Execution Time: 509.94ms
+Memory Usage Before: 16973 KB
+Memory Usage After: 17219 KB
+Memory Consumed: 246 KB
+
+Function: query_create
+Execution Time: 813.88µs
+Memory Usage Before: 18169 KB
+Memory Usage After: 18333 KB
+Memory Consumed: 164 KB
+
+Function: query_read
+Execution Time: 114.40ms
+Memory Usage Before: 19382 KB
+Memory Usage After: 19480 KB
+Memory Consumed: 98 KB
+
+Function: query_update
+Execution Time: 3.14ms
+Memory Usage Before: 20021 KB
+Memory Usage After: 20037 KB
+Memory Consumed: 16 KB
+
+Function: query_delete
+Execution Time: 958.46µs
+Memory Usage Before: 20774 KB
+Memory Usage After: 20774 KB
+Memory Consumed: 0 KB
+
+
+[Python]
+
+(miniconda3) (base) ➜  Mini_PJT_8_Transitioning_from_Python_to_Rust git:(main) ✗ /opt/miniconda3/bin/python /Use
+rs/ilseoplee/Mini_PJT_8_Transitioning_from_Python_to_Rust/main.py
+Performance of `extract` function:
+Function: extract
+Execution Time: 231.50ms
+Memory Usage Before: 32304.00 KB
+Memory Usage After: 36848.00 KB
+Memory Consumed: 4544.00 KB
+
+Performance of `load` function:
+Function: load
+Execution Time: 12.99ms
+Memory Usage Before: 36848.00 KB
+Memory Usage After: 37664.00 KB
+Memory Consumed: 816.00 KB
+
+Performance of `queryCreate` function:
+Function: queryCreate
+Execution Time: 0.83ms
+Memory Usage Before: 37664.00 KB
+Memory Usage After: 37664.00 KB
+Memory Consumed: 0.00 KB
+
+Performance of `queryRead` function:
+Function: queryRead
+Execution Time: 0.33ms
+Memory Usage Before: 37664.00 KB
+Memory Usage After: 37664.00 KB
+Memory Consumed: 0.00 KB
+
+Performance of `queryUpdate` function:
+Function: queryUpdate
+Execution Time: 3.41ms
+Memory Usage Before: 37664.00 KB
+Memory Usage After: 37680.00 KB
+Memory Consumed: 16.00 KB
+
+Performance of `queryDelete` function:
+Function: queryDelete
+Execution Time: 1.05ms
+Memory Usage Before: 37680.00 KB
+Memory Usage After: 37696.00 KB
+Memory Consumed: 16.00 KB
