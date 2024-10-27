@@ -8,6 +8,7 @@ from mylib.extract import extract
 from mylib.transform import load
 from mylib.query import queryCreate, queryRead, queryUpdate, queryDelete
 
+
 def performance(func, *args):
     """
     Measures the performance of a function by tracking time and memory usage.
@@ -30,6 +31,7 @@ def performance(func, *args):
     print(f"Memory Consumed: {end_memory - start_memory:.2f} KB\n")
 
     return result, duration, start_memory, end_memory
+
 
 def main_res():
     results = {}
@@ -59,6 +61,7 @@ def main_res():
     results["delete"], _, _, _ = performance(queryDelete)
 
     return results
+
 
 if __name__ == "__main__":
     main_res()

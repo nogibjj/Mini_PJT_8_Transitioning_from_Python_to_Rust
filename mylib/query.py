@@ -29,9 +29,10 @@ def queryCreate():
     cursor.execute(
         """
         INSERT OR IGNORE INTO HR_1 
-        (EmployeeNumber, Age, Attrition, BusinessTravel, DailyRate, Department, DistanceFromHome, 
-        Education, EducationField, EmployeeCount)
-        VALUES(99999, 30, 'Yes', 'Travel_Rarely', 1100, 'Sales', 5, 3, 'Life Sciences', 1)
+        (EmployeeNumber, Age, Attrition, BusinessTravel, DailyRate, Department, 
+        DistanceFromHome, Education, EducationField, EmployeeCount)
+        VALUES(99999, 30, 'Yes', 'Travel_Rarely', 1100, 'Sales', 
+        5, 3, 'Life Sciences', 1)
         """
     )
 
@@ -115,7 +116,8 @@ def queryDelete():
     conn = sqlite3.connect("HR_1.db")
     cursor = conn.cursor()
 
-    # Delete the record and commit the changes(Aga >= 18 and Emp# 99999 which is test function of CREATE)
+    # Delete the record and commit the changes(Aga >= 18 
+    # and Emp# 99999 which is test function of CREATE)
     cursor.execute("DELETE FROM HR_1 WHERE Age <= 18 OR EmployeeNumber = 99999")
 
     conn.commit()  # Commit the deletion

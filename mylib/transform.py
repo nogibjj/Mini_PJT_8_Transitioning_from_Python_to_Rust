@@ -44,7 +44,8 @@ def load(dataset="HR_1.csv"):
                     c.execute(
                         """
                         INSERT INTO HR_1 
-                        (EmployeeNumber, Age, Attrition, BusinessTravel, DailyRate, Department, DistanceFromHome, 
+                        (EmployeeNumber, Age, Attrition, BusinessTravel, DailyRate, 
+                        Department, DistanceFromHome, 
                         Education, EducationField, EmployeeCount)
                         VALUES(?,?,?,?,?,?,?,?,?,?)
                         """,

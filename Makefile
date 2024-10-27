@@ -10,6 +10,9 @@ rust-version:
 format:
 	cargo fmt 
 
+run:
+	cargo run
+
 lint:
 	cargo clippy 
 
@@ -18,9 +21,6 @@ test:
 
 check:
 	cargo check
-
-run:
-	cargo run
 
 release:
 	cargo build --release
