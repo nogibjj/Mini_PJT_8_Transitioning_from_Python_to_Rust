@@ -1,0 +1,41 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Check
+      run: make check
+
+    - name: Format
+      run: make format
+
+    - name: Test
+      run: make test
+
+    - name: Release
+      run: cargo build --release
+      
+    - name: Upload Binary Artifact to Github
+      uses: actions/upload-artifact@v4
+      with:
+        name: Mini_PJT_7_Rust_ISL
+        path: target/release/MINI_PJT_7_RUST_PILOT_ISL
