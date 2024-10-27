@@ -37,5 +37,5 @@ jobs:
     - name: Upload Binary Artifact to Github
       uses: actions/upload-artifact@v4
       with:
-        name: Mini_PJT_7_Rust_ISL
-        path: target/release/MINI_PJT_7_RUST_PILOT_ISL
+        name: mini_pjt_7_rust_pilot_isl
+        path: target/release/mini_pjt_7_rust_pilot_isl
