@@ -1,6 +1,5 @@
 // lib.rs
 
-// 필요한 모듈 가져오기
 use csv::ReaderBuilder;
 use reqwest::blocking::get;
 use rusqlite::{params, Connection, Result};
@@ -8,7 +7,7 @@ use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 
-// 1. Extract 함수
+// Extract 
 pub fn extract(url: &str, file_path: &str, _timeout: u64) -> Result<String, String> {
     match get(url) {
         Ok(response) => {
@@ -34,7 +33,7 @@ pub fn extract(url: &str, file_path: &str, _timeout: u64) -> Result<String, Stri
     }
 }
 
-// 2. Load 함수
+// Load
 pub fn load(dataset: &str) -> Result<String, String> {
     let file = File::open(dataset).map_err(|e| format!("Failed to open CSV file: {}", e))?;
     let mut rdr = ReaderBuilder::new().delimiter(b',').from_reader(file);
@@ -78,7 +77,7 @@ pub fn load(dataset: &str) -> Result<String, String> {
     Ok("HR_1.db".to_string())
 }
 
-// 3. Query 함수들
+// 3. Query
 pub fn query_create() -> Result<String, String> {
     let conn =
         Connection::open("HR_1.db").map_err(|e| format!("Failed to connect to database: {}", e))?;
