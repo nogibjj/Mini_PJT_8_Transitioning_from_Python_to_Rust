@@ -80,11 +80,11 @@ Mini_PJT_8_Transitioning_from_Python_to_Rust
 - Binary file is successfully released 
 [Binary Articact Download](https://github.com/nogibjj/Mini_PJT_8_Transitioning_from_Python_to_Rust_ISL/actions/runs/11544607272/job/32130378632)
 
-![Image](Data/binary_artifact.png)
+   ![Image](Data/binary.png)
 
 ###  ***Performance Comparision*** 
 
--The performance test showed that Python overall outperformed Rust in both Execution Time and Memory Consumed for simple tasks. Although Rust has stricter memory management (evident in its lower "Memory Usage Before" values([Test_result](test_comparision.txt))), Python was faster and more efficient in this test with a small dataset (a 2000-row, 10-column table). For larger, more complex tasks, Rust's performance may differ.
+- The performance test showed that Python overally outperformed Rust in both Execution Time and Memory Consumed for simple tasks. Although Rust has stricter memory management (evident in its lower "Memory Usage Before" values([Test_result](test_comparision.txt))), Python was faster and more efficient in this test with a small dataset (a 2000-row, 10-column table). For larger, more complex tasks, Rust's performance may differ.
 
 | Programming Language    | Extract | Load   | Create | Read   | Update | Delete | Total   | Unit |
 | ----------------------- | ------- | ------ | ------ | ------ | ------ | ------ | ------- | ---- |
@@ -94,6 +94,14 @@ Mini_PJT_8_Transitioning_from_Python_to_Rust
 | Rust(Memory Consumed)   | 6308.00 | 246    | 164    | 98     | 16     | 0      | 6,832   | KB   |
 
 
+
+---------
+### Testing
+- Python
+   ![photo](Data/py_test.png)
+   ![lint](Data/py_lint.png)
+- Rust
+   ![photo](Data/rs_test.png)
 
 
 ----------
